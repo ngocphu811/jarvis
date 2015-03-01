@@ -52,21 +52,24 @@ class Microphone:
 	def stt(self):
 		txt = ''
 		ret = False
+		
+
 
 		if self.real:
 			result = self.wit.post_speech(self.grabAudio( self.mic, 2 ), content_type=self.CONTENT_TYPE)
-			ans = self.getKey(result)
+			ans = self.getKey(result).lower()
 		
 			# this doesn't work so good :(
-			if ans == 'attention':
-				self.logger.info('[*] Listening')
+			if ans == 'attention':			
 				misc.playWave('sounds/misc/beep_hi.wav')
-			
+				self.logger.info('[*] Listening')	
 				txt = self.wit.post_speech(self.grabAudio( self.mic, 3 ), content_type=self.CONTENT_TYPE)
-				
+				ret = True
 				misc.playWave('sounds/misc/beep_lo.wav')
 				self.logger.info('[*] Done listening')
-				ret = True
+			else:
+				print 'Error'
+				print result
 				
 		else:
 			print "you:",
@@ -75,14 +78,17 @@ class Microphone:
 			pprint.pprint( txt )
 			ret = True
 			
+		
+
 		return txt, ret
 		
-	"""
-	generator -- don't change!!
-	in: pyaudio and number of seconds to record
-	out: audio stream
-	"""
+	
 	def grabAudio(self,p,sec):
+		"""
+		generator -- don't change!!
+		in: pyaudio and number of seconds to record
+		out: audio stream
+		"""
 	
 		stream = p.open(
 			format=self.FORMAT, 
@@ -185,7 +191,7 @@ class Microphone:
 # 
 # 
 ####################################################################
-class RobotSoundServer(mp.Process):
+class SoundServer(mp.Process):
 	def __init__(self,stdin=os.fdopen(os.dup(sys.stdin.fileno())),host="localhost",port=9200):
 		mp.Process.__init__(self)
 		self.host = host
@@ -210,7 +216,7 @@ class RobotSoundServer(mp.Process):
 			self.logger.info('Wit.ai API token %s'%(wit_token))
 		
 		# get microphone	
-		use_mic = False
+		use_mic = True
 		self.mic = Microphone(wit_token,use_mic,stdin)
 		
 		# Grab plugins
@@ -347,7 +353,7 @@ class RobotSoundServer(mp.Process):
 
 if __name__ == '__main__':
 	#output_file = StringIO()
-	s = RobotSoundServer()
+	s = SoundServer()
 	s.run()
 	print 'bye ...'
 	

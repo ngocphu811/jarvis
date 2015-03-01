@@ -25,7 +25,7 @@ class Plugin(Module):
 		self.blues_bros_sounds = self.loadSounds('blues_bros')
 		
 	def loadSounds(self,type):
-		file = '/Users/kevin/github/soccer2/sounds/' + type
+		file = '/Users/kevin/github/jarvis/sounds/' + type
 		snds = glob.glob(file + '/*.wav')
 		self.logger.info('   [>] %s loaded %d sound files'%(type,len(snds)))	
 		return snds
@@ -36,15 +36,18 @@ class Plugin(Module):
 		print entity
 		sound = ''
 		
+		name = entity['contact']['body'].lower()
 		# venture bros not working??? also, might be a bad wave file
-		if entity['contact']['body'] == 'Star Wars':
+		if name == 'star wars':
 			sound = random.choice( self.star_wars_sounds )
-		elif entity['contact']['body'] == 'Blues Brothers':
+		elif name == 'blues brothers':
 			sound = random.choice( self.blues_bros_sounds )
-		elif entity['contact']['body'] == 'Brothers' or entity['contact']['body'] == 'Venture Brothers':
+		elif name == 'venture brothers':
 			sound = random.choice( self.venture_bros_sounds )
 			
-		if sound != '':
+		if sound == '':
+			print 'Error: sound for %s does not exist'%name
+		else:
 			self.playWave( sound )
 		return ''
 		

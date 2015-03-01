@@ -11,6 +11,7 @@ import yaml
 ####################################################################
 class Module:
 	"""
+	Sets up the logger and stores the intent of the module.
 	"""
 	def __init__(self,mod_name='none'):
 		logging.basicConfig(level=logging.INFO)
@@ -25,21 +26,22 @@ class Module:
 			self.info = self.readYaml(file)
 			#self.logger.info('[+] Loaded: %s'%(file))
 	
-	"""
-	Read a yaml file and return the corresponding dictionary
-	in: file name
-	out: dict
-	"""
 	def readYaml(self,fname):
+		"""
+		Read a yaml file and return the corresponding dictionary
+		in: file name
+		out: dict
+		"""
 		f = open( fname )
 		dict = yaml.safe_load(f)
 		f.close()
 		
 		return dict
 	
-	"""
-	"""
 	def handleIntent(self,intent):
+		"""
+		Returns True if the intent passed matches the intent of this module.
+		"""
 		ans = False
 		if self.intent == intent:
 			ans = True
