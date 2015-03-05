@@ -1,5 +1,7 @@
 # Jarvis
 
+[![Build Status](https://travis-ci.org/walchko/jarvis.svg)](https://travis-ci.org/walchko/jarvis)
+
 A simple Jarvis written in Python.
 
 ## Libraries Used
@@ -7,9 +9,8 @@ A simple Jarvis written in Python.
 You need the following key python libraries installed:
 
 * python-forecastio - weather
-* PyWit - text-to-speech
+* wit - speech-to-text
 * twilio - SMS
-* PyAudio - recording sound (had to build from scratch)
 * PyYAML - read yaml config files
 * zmq - network connections to other nodes
 
