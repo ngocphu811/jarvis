@@ -2,17 +2,29 @@
 
 [![Build Status](https://travis-ci.org/walchko/jarvis.svg)](https://travis-ci.org/walchko/jarvis)
 
-A simple Jarvis written in Python.
+A simple Jarvis written in Python. Still lots of work to do
 
-## Libraries Used
+# Nodes
 
-You need the following key python libraries installed:
+Jarvis is comprised of a series of nodes as shown below.
 
-* python-forecastio - weather
-* wit - speech-to-text
-* twilio - SMS
-* PyYAML - read yaml config files
-* zmq - network connections to other nodes
+![](./images/jarvis.png)
+
+## Vision
+
+
+
+## Sounds
+
+In: wave file id
+
+Plays a wave file.
+
+## Text to Speech
+
+In: Text string
+
+Converts a string to a wave file using Google Speech.
 
 ## Sound Server
 
@@ -24,7 +36,7 @@ Jarvis uses [wit.ai](https://wit.ai) to understand the spoken word, turning spee
  * Tell a joke (most of the jokes are not funny)
  * Say a greeting
  * Tell you to stop being mean or cursing
- * Play random sound bites from movie and tv shows:
+ * Play random sound bites from movies and tv shows:
  	* Venture Brothers
  	* Blues Brothers
  	* Star Wars
@@ -34,7 +46,7 @@ Jarvis uses [wit.ai](https://wit.ai) to understand the spoken word, turning spee
  
 Additionally, the text-to-speech part uses [Google Translate](https://translate.google.com) (which sounds the best) or uses `say`.
 
-### Plugins
+## Plugins
 
 All plugins are based off this Module class, which basically setups up logging and has methods for reading Yaml files and determining if this plugin handles the requested intent.
 
@@ -100,14 +112,24 @@ An example plugin, which uses the base class Module, is shown below for reading 
 
 # To Do's
 
-* [] Need better solution for listening for name (jarvis), it can be hard for the system to detect you
-* [] Need to account for background noise, also effects hearing its name
-* [] Need better solution for exit, not sure what to do
-* [] Pass location of Yaml file with API accounts
-* [] Reload modules
-* [] Rename jarvis to something else
-* [] General command line args
-* [] Example init.d script
-* [] Allow external commands from a camera system, to trigger plugins via zmq
-* [] Might break up tv/movie sounds into individual plugins
-* [] Change plugins from list to dict, simplify things better
+* [ ] Turn off/on listening for audio instead of just doing it all the time until it crashes
+* [ ] Need better solution for exit, not sure what to do
+* [x] Pass location of Yaml file with API accounts
+* [ ] Reload plugins
+* [ ] General command line args
+* [ ] Example init.d script
+* [ ] Allow external commands from a camera system, to trigger plugins via zmq
+* [ ] Might break up tv/movie sounds into individual plugins
+* [ ] Change plugins from list to dict, simplify things better
+* [ ] Create other processes: Display, sound
+* [ ] Ask jarvis for help on how to do things
+
+## Libraries Used
+
+You need the following key python libraries installed:
+
+* python-forecastio - weather
+* wit - speech-to-text
+* twilio - SMS
+* PyYAML - read yaml config files
+* zmq - network connections to other nodes
